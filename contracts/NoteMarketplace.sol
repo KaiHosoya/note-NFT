@@ -15,7 +15,7 @@ contract NoteMarketplace is ERC721, ERC721URIStorage {
     //owner is the contract address that created the smart contract
     address payable owner;
     //The fee charged by the marketplace to be allowed to list an NFT
-    uint256 listPrice = 0.001 ether;
+    // uint256 listPrice = 0.0000001 ether;
 
     // the structure to store info about a listed token
     struct ListedNote {
@@ -54,7 +54,7 @@ contract NoteMarketplace is ERC721, ERC721URIStorage {
 
     function createListedToken(uint256 tokenId, uint256 price) private {
       // Make sure the sender sent enough ether ETH to pay for listing
-      require(msg.value == listPrice, "Not enough ETH to list");
+      // require(msg.value == listPrice, "Not enough ETH to list");
       require(price > 0, "Make sure that the price isn't negative");
 
       // Update the mapping of tokenId's to Token details, useful for retrieval functions
@@ -125,19 +125,19 @@ contract NoteMarketplace is ERC721, ERC721URIStorage {
         approve(address(this), tokenId);
 
         //Transfer the listing fee to the marketplace creator
-        payable(owner).transfer(listPrice);
+        // payable(owner).transfer(listPrice);
         //Transfer the proceeds from the sale to the seller of the NFT
         payable(seller).transfer(msg.value);
     } 
 
-    function updateListPrice(uint256 _listPrice) public payable {
-    require(owner == msg.sender, "Only owner can update listing price");
-    listPrice = _listPrice;
-    }
+    // function updateListPrice(uint256 _listPrice) public payable {
+    // require(owner == msg.sender, "Only owner can update listing price");
+    // listPrice = _listPrice;
+    // }
 
-    function getListPrice() public view returns (uint256) {
-        return listPrice;
-    }
+    // function getListPrice() public view returns (uint256) {
+    //     return listPrice;
+    // }
 
     function getLatestIdToListedNote() public view returns (ListedNote memory) {
         uint256 currentTokenId = _tokenIds.current();
